@@ -14,11 +14,13 @@ import json
 import logging
 import os
 from dotenv import load_dotenv, find_dotenv
+from flask_cors import CORS
 
 # 환경변수 로드
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": ["https://api.flipflick.life"]}})
 
 # 로깅 설정
 log_level = getattr(logging, os.getenv('LOG_LEVEL', 'INFO').upper())
