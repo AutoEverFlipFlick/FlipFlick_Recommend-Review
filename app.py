@@ -33,6 +33,7 @@ class Config:
     REDIS_HOST = os.getenv('REDIS_HOST')
     REDIS_PORT = int(os.getenv('REDIS_PORT'))
     REDIS_DB = int(os.getenv('REDIS_DB'))
+    REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', None)
 
     # 캐시 설정
     SIMILARITY_CACHE_KEY = os.getenv('SIMILARITY_CACHE_KEY')
@@ -41,6 +42,9 @@ class Config:
 
     # 스케줄러 설정
     SCHEDULE_TIME = os.getenv('SCHEDULE_TIME')
+
+    # 플라스크 실행 포트
+    FLASK_PORT = int(os.getenv('FLASK_PORT', 80))
 
     # 유사도 계산 설정
     SIMPLE_SIMILARITY_THRESHOLD = float(os.getenv('SIMPLE_SIMILARITY_THRESHOLD'))
@@ -65,6 +69,7 @@ try:
         host=Config.REDIS_HOST, 
         port=Config.REDIS_PORT, 
         db=Config.REDIS_DB,
+        password=Config.REDIS_PASSWORD
         decode_responses=True  # 자동으로 문자열 디코딩
     )
     # Redis 연결 테스트
@@ -419,7 +424,7 @@ def health_check():
             'redis_host': Config.REDIS_HOST,
             'schedule_time': Config.SCHEDULE_TIME
         }
-    })
+    }), 200
 
 @app.route('/recalculate-similarity', methods=['POST'])
 def recalculate_similarity():
@@ -581,4 +586,4 @@ if __name__ == '__main__':
     scheduler_thread.start()
     
     # Flask 서버 시작
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=Config.FLASK_PORT, debug=False)
