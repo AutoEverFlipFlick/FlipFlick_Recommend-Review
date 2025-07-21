@@ -13,7 +13,7 @@ import redis
 import json
 import logging
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 # 환경변수 로드
 load_dotenv(find_dotenv())
