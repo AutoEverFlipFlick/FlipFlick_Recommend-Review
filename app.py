@@ -69,7 +69,7 @@ try:
         host=Config.REDIS_HOST, 
         port=Config.REDIS_PORT, 
         db=Config.REDIS_DB,
-        password=Config.REDIS_PASSWORD
+        password=Config.REDIS_PASSWORD,
         decode_responses=True  # 자동으로 문자열 디코딩
     )
     # Redis 연결 테스트
