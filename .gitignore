@@ -4,8 +4,5 @@
 # 가상환경 폴더 무시
 .venv/
 
-# 파이썬 의존성 파일 무시
-requirements.txt
-
 # __pycache__ 폴더도 무시
 __pycache__/
